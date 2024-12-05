@@ -83,8 +83,8 @@
   }
   
   .blob-1 { background-color: var(--color-primary); }
-  .blob-2 { background-color: #eab308; animation-delay: 2s; }
-  .blob-3 { background-color: var(--color-secondary); animation-delay: 4s; }
+  .blob-2 { background-color: skyblue; animation-delay: 350ms; }
+  .blob-3 { background-color: var(--color-secondary); animation-delay: 2s; }
   
   @keyframes blob-animation {
     0% { transform: translateY(0); }
