@@ -5,15 +5,29 @@ import { motion } from 'framer-motion'
 import { MoonIcon, SunIcon } from 'lucide-react'
 
 export default function Hero() {
-  const [isDarkMode, setIsDarkMode] = useState(true)
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check localStorage for theme preference
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setIsDarkMode(storedTheme === 'dark');
+    } else {
+      // Default to system preference
+      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(prefersDarkMode);
+    }
+  }, []);
 
   useEffect(() => {
     if (isDarkMode) {
-      document.documentElement.classList.add('dark')
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
-      document.documentElement.classList.remove('dark')
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
-  }, [isDarkMode])
+  }, [isDarkMode]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -23,12 +37,12 @@ export default function Hero() {
         staggerChildren: 0.3,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
-  }
+  };
 
   return (
     <section className="hero">
@@ -45,7 +59,6 @@ export default function Hero() {
           Full Stack MERN Developer | Frontend Enthusiast
         </motion.p>
         <motion.div variants={itemVariants}>
-          {/* <a href="#projects" className="hero-button">View My Work</a> */}
           Scroll to know more
         </motion.div>
       </motion.div>
@@ -79,6 +92,5 @@ export default function Hero() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
-
